@@ -4,6 +4,9 @@ import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 import io.gatling.javaapi.core.*;
 import java.util.Map;
+import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class BuyerScenario {
@@ -16,19 +19,18 @@ public class BuyerScenario {
         )).circular(); // Dùng vòng tròn (hết thì quay lại đầu)
 
     // Tạo feeder chứa các sản phẩm
-    private static final java.util.Iterator<Map<String, Object>> productIdFeeder = 
-        java.util.stream.Stream.generate(() -> {
-            Map<String, Object> map = new java.util.HashMap<>();
-            // Random từ 1 đến 12
-            int randomId = (int) (Math.random() * 12) + 1;
-            map.put("randomProdId", String.valueOf(randomId));
+    private static final Iterator<Map<String, Object>> searchFeeder = Stream.generate(() -> {
+            Map<String, Object> map = new HashMap<>();
+            String[] keywords = { "phone", "camera", "computer", "earbud", "headphone" };
+            int randomIndex = (int) (Math.random() * keywords.length);
+            map.put("keyword", keywords[randomIndex]);
             return map;
         }).iterator();
 
     public static ScenarioBuilder build() {
         return scenario("Buyer Flow: Login & Purchase")
                 .feed(userFeeder)
-                .feed(productIdFeeder)
+                .feed(searchFeeder)
 
                 // Buóc 1: Lấy CSRF token 
                 .exec(http("Get CSRF Token")
@@ -59,10 +61,16 @@ public class BuyerScenario {
                         .check(jsonPath("$.user.email").saveAs("userEmail"))
                         .check(jsonPath("$.user.id").saveAs("userId"))
                         .check(bodyString().saveAs("sessionResponse")))
-
                 .pause(2)
 
-                // Bước 4: Tạo đơn hàng
+                // Bước 4: Tìm kiếm sản phẩm và trích xuất ID ngẫu nhiên
+                .exec(http("Search Product: #{keyword}")
+                        .get("http://localhost:3001/api/search?query=#{keyword}") 
+                        .check(status().is(200))
+                        .check(jsonPath("$[*].id").findRandom().saveAs("randomProdId")))
+                .pause(1, 3) // Nghĩ ngẫu nhiên từ 1-3 giây
+
+                // Bước 5: Tạo đơn hàng
                 .exec(http("Create Order Record")
                         .post("http://localhost:3001/api/orders") 
                         .header("Content-Type", "application/json")
@@ -91,7 +99,7 @@ public class BuyerScenario {
 
                 .pause(1)
 
-                // Bước 5: Thêm sản phẩm vào đơn
+                // Bước 6: Thêm sản phẩm vào đơn
                 .exec(http("Add Product To Order")
                         .post("http://localhost:3001/api/order-product")
                         .header("Content-Type", "application/json")

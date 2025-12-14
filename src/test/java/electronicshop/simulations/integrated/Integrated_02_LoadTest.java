@@ -11,19 +11,19 @@ public class Integrated_02_LoadTest extends BaseSimulation {
         int duration = 180;
 
         setUp(
-            // GUEST (70% - 70 User) 
+            // Guest (70% - 70 uuser ) 
             GuestUserScenario.build().injectOpen(
                 rampUsers(70).during(duration)
             ),
 
-            // --- NHÓM 2: BUYER (25% - 25 User) ---
-            // Delay 5s để Guest vào trước, tạo tải nền cho server
+            // Buyer  (25% - 25 User) 
+            // Delay 5s để guest vào trước, tạo tải nền cho server
             BuyerScenario.build().injectOpen(
                 nothingFor(5), 
                 rampUsers(25).during(duration)
             ),
 
-            // --- NHÓM 3: ADMIN (5% - 5 User) ---
+            // admin (5 user)
             // Delay 20s để Buyer kịp tạo đơn hàng, Admin vào mới vào
             AdminScenario.build().injectOpen(
                 nothingFor(20),

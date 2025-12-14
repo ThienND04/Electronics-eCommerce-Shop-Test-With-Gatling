@@ -38,7 +38,7 @@ public class AdminScenario {
             )
             .pause(1)
 
-            // Bước 2: Kiểm tra role
+            // Kiểm tra role
             .exec(http("Check Admin session")
                 .get("/api/auth/session")
                 .check(status().is(200))
@@ -47,10 +47,10 @@ public class AdminScenario {
             )
             .pause(2)
 
-            // Bước 3: Vào dashboard tổng quan
+            // Bước 2: Vào dashboard tổng quan
             // Thường Admin sẽ vào xem dashboard đầu tiên
             .exec(http("Admin: Load dashboard")
-                .get("/admin/dashboard") 
+                .get("/admin") 
                 .check(status().in(200, 304, 404)) 
             )
             .pause(2)

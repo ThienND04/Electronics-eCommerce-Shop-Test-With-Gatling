@@ -25,10 +25,11 @@ while true; do
     echo "[ADMIN SCENARIOS]"
     echo "    7. Admin - Smoke Test"
     echo "    8. Admin - Volume Load Test"
+    echo "    8. Admin - Volume Stress Test"
     echo ""
     echo "[INTEGRATED SCENARIOS]"
-    echo "    9. Integrated - Smoke Test (Debug)"
-    echo "    10. Integrated - FULL LOAD TEST (Bao cao)"
+    echo "    9. Integrated - Smoke Test "
+    echo "    10. Integrated - FULL LOAD TEST "
     echo ""
     echo "====================================================="
     read -p ">>> Lua chon (0-10): " opt
