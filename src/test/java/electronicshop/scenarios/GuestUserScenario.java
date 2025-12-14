@@ -30,22 +30,15 @@ public class GuestUserScenario {
                 .exec(http("Home Page API").get("http://localhost:3001/api/products?limit=10"))
                 .pause(2) // Thời gian người dùng quan sát
 
-                // Bước 2: Tìm kiếm sản phẩm 
+                // Bước 2: Tìm kiếm sản phẩm và trích xuất ID ngẫu nhiên
                 .feed(searchFeeder)
                 .exec(http("Search Product: #{keyword}")
-                        .get("http://localhost:3001/api/products?search=#{keyword}") 
-                        .check(status().is(200)))
+                        .get("http://localhost:3001/api/search?query=#{keyword}") 
+                        .check(status().is(200))
+                        .check(jsonPath("$[*].id").findRandom().saveAs("randomProdId")))
                 .pause(1, 3) // Nghĩ ngẫu nhiên từ 1-3 giây
 
-                // Bước 3: Lấy danh sách tất cả và trích xuất ID ngẫu nhiên
-                .exec(http("Get All Products")
-                        .get("http://localhost:3001/api/products")
-                        .check(status().is(200))
-                        // Tìm ID của sản phẩm trong JSON trả về và lưu vào biến
-                        .check(jsonPath("$[*].id").findRandom().saveAs("randomProdId")))
-                .pause(2)
-
-                // Bước 4: Xem chi tiết sản phẩm
+                // Bước 3: Xem chi tiết sản phẩm
                 .exec(http("View Product Detail")
                         .get("http://localhost:3001/api/products/#{randomProdId}") 
                         .check(status().is(200))

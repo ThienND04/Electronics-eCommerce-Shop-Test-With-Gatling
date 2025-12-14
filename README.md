@@ -1,14 +1,14 @@
 # Báo Cáo Kiểm Thử Phần Mềm - Electronics eCommerce Shop
 
-Dự án này chứa các kịch bản kiểm thử (Test Scenarios) và tài liệu liên quan để đánh giá chất lượng, hiệu năng của hệ thống **Electronics eCommerce Shop**.
+Dự án này chứa các kịch bản kiểm thử và tài liệu liên quan để đánh giá chất lượng, hiệu năng của hệ thống **Electronics eCommerce Shop**.
 
-## 👥 Thành Viên Nhóm
+## Thành Viên Nhóm
 
 | STT | Họ và Tên | Mã Sinh Viên | Vai trò |
 | :--- | :--- | :--- | :--- |
-| 1 | **Nguyễn Đức Thiện** | 22021164 | Thành viên  / ... |
-| 2 | **Mai Hoàng Bách** | 22021224  | Thành viên / ... |
-| 3 | **Vy Anh Dũng** | 22021179  | Thành viên / ... |
+| 1 | **Nguyễn Đức Thiện** | 22021164 | Thành viên  |
+| 2 | **Mai Hoàng Bách** | 22021224  | Trưởng nhóm  |
+| 3 | **Vy Anh Dũng** | 22021179  | Thành viên  |
 
 ---
 
@@ -17,13 +17,11 @@ Dự án này chứa các kịch bản kiểm thử (Test Scenarios) và tài li
 ### Hệ thống cần kiểm thử (System Under Test - SUT)
 Chúng tôi thực hiện kiểm thử trên dự án mã nguồn mở **Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS**.
 * **Repo gốc:** [GitHub - Kuzma02](https://github.com/Kuzma02/Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS)
-* **Công nghệ SUT:** Next.js (Frontend), Node.js & Express (Backend), MongoDB.
+* **Công nghệ:** Next.js (Frontend), Node.js & Express (Backend), MySql.
 
 ### Mục tiêu kiểm thử
-Dự án này tập trung vào mục tiêu sau:
-1.  **Kiểm thử hiệu năng (Performance Testing):** Đánh giá khả năng chịu tải, thời gian phản hồi của server dưới áp lực truy cập lớn (sử dụng Gatling).
+Dự án này tập trung vào mục tiêu kiểm thử hiệu năng (Performance Testing): Đánh giá khả năng chịu tải, thời gian phản hồi của server dưới áp lực truy cập lớn (sử dụng Gatling).
 
----
 
 ## 2. Yêu Cầu Tiên Quyết 
 
@@ -34,8 +32,6 @@ Dự án này tập trung vào mục tiêu sau:
 * **MongoDB**: Cần có connection string (local hoặc Atlas) để chạy Website.
 * **Java JDK** (Nếu dùng Gatling/JMeter): Phiên bản JDK 11 hoặc 17.
 * **Maven/Gradle** (Nếu dùng Gatling bản Java/Scala).
-
----
 
 ## 3. Cài Đặt & Cấu Hình
 
@@ -56,10 +52,10 @@ Dự án này tập trung vào mục tiêu sau:
 
 Dự án bao gồm 4 kịch bản kiểm thử hiệu năng chính, tương ứng với các hành vi người dùng khác nhau trên hệ thống.
 
-### Mô Tả Các Kịch Bản (Scenarios)
+### Mô tả các kịch bản 
 
 1.  **Guest Simulation**:
-    * **Mục tiêu:** Kiểm tra hiệu năng hệ thống với các tác vụ read-only (chỉ đọc).
+    * **Mục tiêu:** Kiểm tra hiệu năng hệ thống với các tác vụ read-only.
     * **Hành vi:** Truy cập trang chủ, xem danh sách sản phẩm, tìm sản phẩm, xem chi tiết sản phẩm.
     
 2.  **Buyer Simulation**:
@@ -67,12 +63,12 @@ Dự án bao gồm 4 kịch bản kiểm thử hiệu năng chính, tương ứn
     * **Hành vi:** Đăng nhập, Thêm sản phẩm vào giỏ hàng (Add to cart), Tiến hành thanh toán (Checkout).
 
 3.  **Admin Simulation**:
-    * **Mục tiêu:** Kiểm tra tải của trang quản trị (Dashboard).
+    * **Mục tiêu:** Kiểm tra tải của các trang admin khi có nhiều dữ liệu.
     * **Hành vi:** Đăng nhập Admin, xem Dashboard thống kê, quản lý các sản phẩm, Quản lý các đơn hàng, xem chi tiết đơn hàng, quản lý danh sách người dùng.
 
 4.  **Integrated Simulation**:
     * **Mục tiêu:** Load test toàn hệ thống.
-    * **Hành vi:** Chạy đồng thời Guest, Buyer và Admin với tỉ lệ phân bổ traffic thực tế (Ví dụ: 70% Guest, 20% Buyer, 10% Admin) để mô phỏng môi trường thực.
+    * **Hành vi:** Chạy đồng thời Guest, Buyer và Admin với tỉ lệ phân bổ traffic (Ví dụ: 70% Guest, 25% Buyer, 5% Admin) để mô phỏng môi trường thực.
 
 #### Trên Windows
 
@@ -88,6 +84,7 @@ Dự án bao gồm 4 kịch bản kiểm thử hiệu năng chính, tương ứn
 2.  Cấp quyền thực thi (nếu cần) và chạy lệnh:
     ```bash
     chmod +x MENU_RUN.sh
+    ./MENU_RUN.sh
     ```
 
 Sau khi chạy các menu trên, sẽ hiện lên giao diện để chạy các test có dạng như sau: 
@@ -111,11 +108,12 @@ Sau khi chạy các menu trên, sẽ hiện lên giao diện để chạy các t
     [ADMIN SCENARIOS]
     7. Admin - Smoke Test
     8. Admin - Volume Load Test
+    9. Admin - Volume Stress Test
 
     [INTEGRATED SCENARIOS]
-    9. Integrated - Smoke Test (Debug)
-    10. Integrated - FULL LOAD TEST (Bao cao)
+    10. Integrated - Smoke Test (Debug)
+    11. Integrated - FULL LOAD TEST (Bao cao)
 
     =====================================================
-    >>> Lua chon (0-10):
+    >>> Lua chon (0-11):
     ```

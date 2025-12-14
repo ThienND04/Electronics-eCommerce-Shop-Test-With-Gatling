@@ -26,13 +26,14 @@ echo.
 echo [ADMIN SCENARIOS]
 echo    7. Admin - Smoke Test 
 echo    8. Admin - Volume Load Test 
+echo    9. Admin - Volume Stress Test 
 echo.
 echo [INTEGRATED SCENARIOS]
-echo    9. Integrated - Smoke Test (Debug)
-echo    10. Integrated - FULL LOAD TEST (Bao cao)
+echo    10. Integrated - Smoke Test 
+echo    11. Integrated - FULL LOAD TEST 
 echo.
 echo =====================================================
-set /p opt=">>> Lua chon (0-10): "
+set /p opt=">>> Lua chon (0-11): "
 
 :: --- ANH XA LUA CHON ---
 if "%opt%"=="0" exit
@@ -44,8 +45,9 @@ if "%opt%"=="5" set CLASS_NAME=buyer.Buyer_02_LoadTest
 if "%opt%"=="6" set CLASS_NAME=buyer.Buyer_03_StressTest
 if "%opt%"=="7" set CLASS_NAME=admin.Admin_01_SmokeTest
 if "%opt%"=="8" set CLASS_NAME=admin.Admin_02_LoadTest
-if "%opt%"=="9" set CLASS_NAME=integrated.Integrated_01_SmokeTest
-if "%opt%"=="10" set CLASS_NAME=integrated.Integrated_02_LoadTest
+if "%opt%"=="9" set CLASS_NAME=admin.Admin_03_DataVolume_StressTest
+if "%opt%"=="10" set CLASS_NAME=integrated.Integrated_01_SmokeTest
+if "%opt%"=="11" set CLASS_NAME=integrated.Integrated_02_LoadTest
 
 :: --- KIEM TRA HOPLE ---
 if "%CLASS_NAME%"=="" (
