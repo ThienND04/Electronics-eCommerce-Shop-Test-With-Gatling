@@ -32,9 +32,9 @@ public class Integrated_02_LoadTest extends BaseSimulation {
         )
         .protocols(httpProtocol)
         .assertions(
-            // Tiêu chí chấp nhận chung cho toàn hệ thống
-            global().failedRequests().percent().lt(2.0), // Lỗi < 2%
-            global().responseTime().percentile(95).lt(2000) // P95 < 2s (Do chạy localhost nặng)
+            global().failedRequests().percent().lt(1.0),      // Tỉ lệ lỗi < 1% 
+            global().responseTime().percentile(95).lt(1000),  // P95 < 1000ms 
+            global().responseTime().mean().lt(800)            // Trung bình < 800ms 
         );
     }
 }
