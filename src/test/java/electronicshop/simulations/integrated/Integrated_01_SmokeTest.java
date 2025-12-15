@@ -11,6 +11,9 @@ public class Integrated_01_SmokeTest extends BaseSimulation {
             GuestUserScenario.build().injectOpen(atOnceUsers(1)),
             BuyerScenario.build().injectOpen(atOnceUsers(1)),
             AdminScenario.build().injectOpen(atOnceUsers(1))
-        ).protocols(httpProtocol);
+        ).protocols(httpProtocol)
+        .assertions(
+            global().failedRequests().percent().is(0.0) // Lỗi bắt buộc phải là 0%
+        );
     }
 }

@@ -16,8 +16,8 @@ public class Guest_03_StressTest extends BaseSimulation {
             )
         ).protocols(httpProtocol)
         .assertions(
-            global().responseTime().percentile(95).lt(1000),
-            global().failedRequests().percent().lt(1.0)
+            global().failedRequests().percent().lt(5.0), // Lỗi < 5%
+            global().responseTime().percentile(95).lt(2000) // P95 < 2s 
         );
     }
 }

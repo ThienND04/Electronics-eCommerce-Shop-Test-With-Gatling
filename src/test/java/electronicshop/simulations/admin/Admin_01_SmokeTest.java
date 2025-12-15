@@ -12,6 +12,9 @@ public class Admin_01_SmokeTest extends BaseSimulation {
     {
         setUp(
             AdminScenario.build().injectOpen(atOnceUsers(1))
-        ).protocols(httpProtocol);
+        ).protocols(httpProtocol)
+        .assertions(
+            global().failedRequests().percent().is(0.0) // Lỗi bắt buộc phải là 0%
+        );
     }
 }

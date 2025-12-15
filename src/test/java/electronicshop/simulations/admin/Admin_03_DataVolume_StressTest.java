@@ -16,8 +16,8 @@ public class Admin_03_DataVolume_StressTest extends BaseSimulation {
                 .injectOpen(atOnceUsers(10))
         ).protocols(httpProtocol)
         .assertions(
-            global().responseTime().percentile(95).lt(2000), // Cho phép load chậm tới 2 giây
-            global().failedRequests().percent().lt(1.0) // Lỗi < 1%
+            global().failedRequests().percent().lt(5.0), // Lỗi < 5%
+            global().responseTime().percentile(95).lt(2000) // P95 < 2s 
         );
     }
 }

@@ -16,8 +16,9 @@ public class Guest_02_LoadTest extends BaseSimulation {
             )
         ).protocols(httpProtocol)
         .assertions(
-            global().responseTime().percentile(95).lt(1000),
-            global().failedRequests().percent().lt(1.0)
+            global().failedRequests().percent().lt(1.0),      // Tỉ lệ lỗi < 1% 
+            global().responseTime().percentile(95).lt(1000),  // P95 < 1000ms 
+            global().responseTime().mean().lt(800)            // Trung bình < 800ms 
         );
     }
 }
