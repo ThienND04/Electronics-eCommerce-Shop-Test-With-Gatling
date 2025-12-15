@@ -30,14 +30,17 @@ echo    9. Admin - Volume Stress Test
 echo.
 echo [INTEGRATED SCENARIOS]
 echo    10. Integrated - Smoke Test 
-echo    11. Integrated - FULL LOAD TEST 
+echo    11. Integrated - Load Test
+echo    12. Integrated - Spike Test
 echo.
 echo =====================================================
-set /p opt=">>> Lua chon (0-11): "
+echo [DATA SEEDER]
+echo    13. DATA SEEDER - CREATE ORDERS (10000)
+set /p opt=">>> Lua chon (0-13): "
 
 :: --- ANH XA LUA CHON ---
 if "%opt%"=="0" exit
-if "%opt%"=="1" set CLASS_NAME=guest.Guest_01_Smoke
+if "%opt%"=="1" set CLASS_NAME=guest.Guest_01_SmokeTest
 if "%opt%"=="2" set CLASS_NAME=guest.Guest_02_LoadTest
 if "%opt%"=="3" set CLASS_NAME=guest.Guest_03_StressTest
 if "%opt%"=="4" set CLASS_NAME=buyer.Buyer_01_SmokeTest
@@ -48,6 +51,8 @@ if "%opt%"=="8" set CLASS_NAME=admin.Admin_02_LoadTest
 if "%opt%"=="9" set CLASS_NAME=admin.Admin_03_DataVolume_StressTest
 if "%opt%"=="10" set CLASS_NAME=integrated.Integrated_01_SmokeTest
 if "%opt%"=="11" set CLASS_NAME=integrated.Integrated_02_LoadTest
+if "%opt%"=="12" set CLASS_NAME=integrated.Integrated_03_SpikeTest
+if "%opt%"=="13" set CLASS_NAME=utils.DataSeeder_CreateOrders
 
 :: --- KIEM TRA HOPLE ---
 if "%CLASS_NAME%"=="" (
