@@ -111,9 +111,12 @@ Sau khi chạy các menu trên, sẽ hiện lên giao diện để chạy các t
     9. Admin - Volume Stress Test
 
     [INTEGRATED SCENARIOS]
-    10. Integrated - Smoke Test (Debug)
-    11. Integrated - FULL LOAD TEST (Bao cao)
+    10. Integrated - Smoke Test 
+    11. Integrated - Load Test
+    12. Integrated - Spike Test
 
     =====================================================
-    >>> Lua chon (0-11):
+    [DATA SEEDER]
+    13. DATA SEEDER - CREATE ORDERS (10000)
+    >>> Lua chon (0-13):
     ```

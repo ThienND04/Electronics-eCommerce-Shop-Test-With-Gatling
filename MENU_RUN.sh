@@ -1,16 +1,15 @@
 #!/bin/bash
 
-# --- CAU HINH PACKAGE ---
-# Sửa dòng này nếu package của bạn khác
+# --- CAU HINH PACKAGE (Sua dong nay neu ten package cua ban khac) ---
 PACKAGE_NAME="electronicshop.simulations"
 
 while true; do
     clear
     echo "====================================================="
-    echo "    GATLING AUTOMATION MENU - ELECTRONICS SHOP (LINUX)"
+    echo "    GATLING AUTOMATION MENU - ELECTRONICS SHOP"
     echo "====================================================="
     echo ""
-    echo "    0. Exit"
+    echo "   0. Exit "
     echo ""
     echo "[GUEST SCENARIOS]"
     echo "    1. Guest - Smoke Test (Test nhanh 1 guest user)"
@@ -23,22 +22,25 @@ while true; do
     echo "    6. Buyer - Stress Test (Test Login va Order voi 500 user)"
     echo ""
     echo "[ADMIN SCENARIOS]"
-    echo "    7. Admin - Smoke Test"
-    echo "    8. Admin - Volume Load Test"
-    echo "    8. Admin - Volume Stress Test"
+    echo "    7. Admin - Smoke Test "
+    echo "    8. Admin - Volume Load Test "
+    echo "    9. Admin - Volume Stress Test "
     echo ""
     echo "[INTEGRATED SCENARIOS]"
-    echo "    9. Integrated - Smoke Test "
-    echo "    10. Integrated - FULL LOAD TEST "
+    echo "    10. Integrated - Smoke Test "
+    echo "    11. Integrated - Load Test"
+    echo "    12. Integrated - Spike Test"
     echo ""
     echo "====================================================="
-    read -p ">>> Lua chon (0-10): " opt
+    echo "[DATA SEEDER]"
+    echo "    13. DATA SEEDER - CREATE ORDERS (10000)"
+    read -p ">>> Lua chon (0-13): " opt
 
     CLASS_NAME=""
 
     case $opt in
-        0) echo "Goodbye!"; exit 0 ;;
-        1) CLASS_NAME="guest.Guest_01_Smoke" ;;
+        0) exit ;;
+        1) CLASS_NAME="guest.Guest_01_SmokeTest" ;;
         2) CLASS_NAME="guest.Guest_02_LoadTest" ;;
         3) CLASS_NAME="guest.Guest_03_StressTest" ;;
         4) CLASS_NAME="buyer.Buyer_01_SmokeTest" ;;
@@ -46,8 +48,11 @@ while true; do
         6) CLASS_NAME="buyer.Buyer_03_StressTest" ;;
         7) CLASS_NAME="admin.Admin_01_SmokeTest" ;;
         8) CLASS_NAME="admin.Admin_02_LoadTest" ;;
-        9) CLASS_NAME="integrated.Integrated_01_SmokeTest" ;;
-        10) CLASS_NAME="integrated.Integrated_02_LoadTest" ;;
+        9) CLASS_NAME="admin.Admin_03_DataVolume_StressTest" ;;
+        10) CLASS_NAME="integrated.Integrated_01_SmokeTest" ;;
+        11) CLASS_NAME="integrated.Integrated_02_LoadTest" ;;
+        12) CLASS_NAME="integrated.Integrated_03_SpikeTest" ;;
+        13) CLASS_NAME="utils.DataSeeder_CreateOrders" ;;
         *) 
             echo ""
             echo "[LOI] Lua chon khong hop le! Vui long chon lai."
@@ -56,14 +61,15 @@ while true; do
             ;;
     esac
 
-    # --- THUC THI LENH MAVEN ---
+    if [ -z "$CLASS_NAME" ]; then
+        continue
+    fi
+
     clear
     echo ""
     echo "[DANG CHAY] $PACKAGE_NAME.$CLASS_NAME ..."
     echo "-----------------------------------------------------"
     
-    # Lưu ý: Trên Linux dùng ./mvnw thay vì mvnw.cmd
-    # Đảm bảo file mvnw đã được cấp quyền thực thi (chmod +x mvnw)
     ./mvnw gatling:test "-Dgatling.simulationClass=$PACKAGE_NAME.$CLASS_NAME"
 
     echo ""
