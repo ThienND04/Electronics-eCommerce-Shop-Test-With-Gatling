@@ -12,7 +12,7 @@ public class Guest_03_StressTest extends BaseSimulation {
     {   
         setUp(
             GuestUserScenario.build().injectOpen(
-                rampUsers(500).during(120) // Đẩy cực mạnh 500 user trong 2 phút
+                rampUsers(1000).during(120) // Đẩy cực mạnh 1000 user trong 120 giây
             )
         ).protocols(httpProtocol)
         .assertions(

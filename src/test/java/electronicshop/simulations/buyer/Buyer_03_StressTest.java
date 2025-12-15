@@ -11,7 +11,7 @@ public class Buyer_03_StressTest extends BaseSimulation {
     {
        setUp(
             BuyerScenario.build().injectOpen(
-                rampUsers(500).during(120) //  500 user trong 120 giay
+                rampUsers(1500).during(30) //  1500 user trong 30 giây
             )
         ).protocols(httpProtocol)
         .assertions(

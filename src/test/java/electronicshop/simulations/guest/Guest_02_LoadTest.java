@@ -12,7 +12,7 @@ public class Guest_02_LoadTest extends BaseSimulation {
     {   
         setUp(
             GuestUserScenario.build().injectOpen(
-                rampUsers(50).during(30)       // Tăng dần 50 user
+                rampUsers(100).during(30)       // Tăng dần 100 user
             )
         ).protocols(httpProtocol)
         .assertions(
